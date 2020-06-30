@@ -1,4 +1,4 @@
-<%= form_with model: @comment, url: [@comment.post, :comments], data: { motion: 'change->validate' } do |f| %>
+<%= form_for @comment, url: [@comment.post, :comments], data: { motion: 'change->validate submit->save' } do |f| %>
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name, data: { field: :name } %>
@@ -10,7 +10,7 @@
   </div>
   <div class="field">
     <%= f.label :body %>
-    <%= f.text_area :body, data: { field: :body, value: f.object.body } %>
+    <%= f.text_area :body, data: { field: :body, PLEASE_DELETE_ME: f.object.body } %>
     <div style="color: red;">
       <% if @changed_fields.include?(:body) %>
         <%= f.object.errors.messages[:body].to_sentence %>
@@ -19,9 +19,6 @@
   </div>
 
   <div>
-    <%= f.submit "Submit", disabled: @disabled, data: { motion: 'click->save' } %>
-    <% if @disabled %>
-      <div>You must fill out the entire form.</div>
-    <% end %>
+    <%= f.submit "Submit" %>
   </div>
 <% end %>

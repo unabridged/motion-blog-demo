@@ -15,3 +15,5 @@
 
 <h3 style="margin-top: 2rem;">New Comment</h3>
 <%= render CommentFormComponent.new(post: @post) %>
+<h3 style="margin-top: 2rem;">Comments</h3>
+<%= render CommentListComponent.new(post: @post) %>
