@@ -1,0 +1,27 @@
+<%= form_with model: @comment, url: [@comment.post, :comments], data: { motion: 'change->validate' } do |f| %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, data: { field: :name } %>
+    <div style="color: red;">
+      <% if @changed_fields.include?(:name) %>
+        <%= f.object.errors.messages[:name].to_sentence %>
+      <% end %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body, data: { field: :body, value: f.object.body } %>
+    <div style="color: red;">
+      <% if @changed_fields.include?(:body) %>
+        <%= f.object.errors.messages[:body].to_sentence %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.submit "Submit", disabled: @disabled, data: { motion: 'click->save' } %>
+    <% if @disabled %>
+      <div>You must fill out the entire form.</div>
+    <% end %>
+  </div>
+<% end %>
